@@ -19,10 +19,21 @@ app.use(express.static(path.join(__dirname,'public')))
 // View Engine 
 app.set("view engine","ejs")
 
-const Genere=[
+// Middleware to get the client's IP address
+app.use((req, res, next) => {
+    const forwarded = req.headers['x-forwarded-for'];
+    req.clientIp = forwarded ? forwarded.split(',').shift() : req.connection.remoteAddress;
+    next();
+  });
+
+  const Genere=[
     {id:1,name:"Action"},
     {id:2,name:"Horror"},
     {id:3,name:"Crime"}]  
+  // Grab IP Route
+app.get('/api/grabip', (req, res) => {
+    res.render('Ip', { ip: req.clientIp });
+  });
 app.get('/',(req,res)=>{
     res.render('Index')
 })
@@ -111,6 +122,7 @@ function isLoggedIn(req,res,next){
     }
 
 }
+
 
 
 app.listen(PORT,()=>{
