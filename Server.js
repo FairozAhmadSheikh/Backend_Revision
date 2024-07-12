@@ -123,17 +123,29 @@ app.get('/api/profile', isLoggedIn, (req, res) => {
     res.render('Profile', { user: req.user });
 });
 
-function isLoggedIn(req,res,next){
-    if(req.cookies.token===""){
-        return res.redirect('/api/login')
-    }
-    else{
-        const data=jwt.verify(req.cookies.token,SECRET_KEY)
-        req.user=data;
-        next();
+function isLoggedIn(req, res, next) {
+    const token = req.cookies.token;
+
+    if (!token) {
+        return res.redirect('/api/login');
     }
 
+    try {
+        const data = jwt.verify(token, SECRET_KEY);
+        req.user = data;
+        next();
+    } catch (error) {
+        // Handle token verification errors
+        console.error('JWT verification error:', error.message);
+        return res.status(401).send('Unauthorized');
+    }
 }
+// Find all saved IP Address
+app.get('/api/getiplist',isLoggedIn,async(req,res)=>{
+    let address= await IpAddress.find()
+    res.render('DataIp',{address})
+    console.log(address)
+})
 
 
 
