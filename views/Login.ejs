@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valley View  Login</title>
+    <link rel="stylesheet" href="/css/Login.css">
+    
+</head>
+<body>
+    <div class="login-box">
+        <h2> Login </h2>
+        <form action="/api/login" method="post">
+          <div class="user-box">
+            <input type="text" name="Email" required="true" >
+            <label>Enter Your Email</label>
+          </div>
+          <div class="user-box">
+            <input type="password" name="Password" required="">
+            <label>Enter Password</label>
+          </div>
+          <a >
+            <input class="btn" type="submit" value="Login">
+          </a>
+          <a href="/api/register">Register</a>
+        </form>
+      </div>
+      
+    
+    
+</body>
+</html>

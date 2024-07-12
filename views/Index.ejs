@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="/css/Index.css">
+</head>
+<body>
+    <h2 id="admin"></h2>
+<nav>
+	<ul>
+		<li><a href="/">Home</a></li>
+		<li><a href="/api/login">Login</a></li>
+		<li><a href="/api/register">Register</a></li>
+		<li><a href="/api/profile">Profile</a></li>
+		
+	</ul>
+</nav>
+</body>
+<script>
+    let x=prompt("Admin Or User")
+    if (x === "admin" || x === "Admin" || x === "ADMIN"){
+        document.getElementById("admin").innerHTML="Admin Pannel"
+
+    }
+    else if(x==="" || !x){
+        document.getElementById("admin").innerHTML="You Feel Lost!"
+    }
+    else{
+        document.getElementById("admin").innerHTML="User Pannel"
+    }
+</script>
+</html>
