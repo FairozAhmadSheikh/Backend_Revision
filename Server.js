@@ -103,7 +103,7 @@ app.post('/api/login', async (req, res) => {
     const { Email, Password } = req.body;
     const user = await UserModel.findOne({ Email });
     if (!user) {
-       return res.status(404).send("User Not Found");
+       return res.status(404).send("User Not Found You Should Register First");
     }
     bcrypt.compare(Password, user.Password, (err, result) => {
        if (result) {
@@ -111,7 +111,7 @@ app.post('/api/login', async (req, res) => {
     res.cookie("token",token)
           return res.redirect('/')
        } else {
-          return res.status(404).send("User Not Found");
+          return res.status(404).send("User Not Found You Should Register First");
        }
     });
  });
@@ -144,7 +144,7 @@ function isLoggedIn(req, res, next) {
 app.get('/api/getiplist',isLoggedIn,async(req,res)=>{
     let address= await IpAddress.find()
     res.render('DataIp',{address})
-    console.log(address)
+    
 })
 
 
