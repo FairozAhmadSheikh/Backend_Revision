@@ -5,6 +5,7 @@ const jwt=require('jsonwebtoken')
 const cookieParser=require('cookie-parser')
 const app =express();
 const path=require('path')
+const IpAddress = require('./models/IP');
 require('dotenv').config();
 
 
@@ -31,9 +32,20 @@ app.use((req, res, next) => {
     {id:2,name:"Horror"},
     {id:3,name:"Crime"}]  
   // Grab IP Route
-app.get('/api/grabip', (req, res) => {
-    res.render('Ip', { ip: req.clientIp });
+app.get('/api/grabip', async(req, res) => {
+    try {
+      // Save IP address to the database
+      const newIpAddress = new IpAddress({ ip: req.clientIp });
+      await newIpAddress.save();
+  
+      // Render the EJS page
+      res.render('Ip', { ip: req.clientIp });
+    } catch (err) {
+      console.error('Error saving IP address to database', err);
+      res.status(500).send('Internal Server Error');
+    }
   });
+
 app.get('/',(req,res)=>{
     res.render('Index')
 })
