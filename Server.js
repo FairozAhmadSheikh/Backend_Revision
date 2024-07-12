@@ -94,7 +94,7 @@ app.post('/api/register',async (req,res)=>{
         })
     const token=jwt.sign({Email:req.body.Email,Username:req.body.Username},SECRET_KEY)
     res.cookie("token",token)
-    res.redirect('/api/profile')
+    res.redirect('/')
       
     })
    }) 
@@ -109,7 +109,7 @@ app.post('/api/login', async (req, res) => {
        if (result) {
         const token=jwt.sign({Email:req.body.Email,Username:req.body.Username},SECRET_KEY)
     res.cookie("token",token)
-          return res.redirect('/api/profile')
+          return res.redirect('/')
        } else {
           return res.status(404).send("User Not Found");
        }
